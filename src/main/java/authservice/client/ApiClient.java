@@ -61,10 +61,10 @@ import authservice.client.auth.ApiKeyAuth;
  */
 public class ApiClient {
 
-    private String basePath = "http://localhost:3000/auth";
+    private String basePath = "https://auth-service-latest.onrender.com/auth";
     protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
     new ServerConfiguration(
-      "http://localhost:3000/auth",
+      "https://auth-service-latest.onrender.com/auth",
       "No description provided",
       new HashMap<String, ServerVariable>()
     )
@@ -156,7 +156,7 @@ public class ApiClient {
     /**
      * Set base path
      *
-     * @param basePath Base path of the URL (e.g http://localhost:3000/auth
+     * @param basePath Base path of the URL (e.g https://auth-service-latest.onrender.com/auth
      * @return An instance of OkHttpClient
      */
     public ApiClient setBasePath(String basePath) {

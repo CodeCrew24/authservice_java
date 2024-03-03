@@ -1,6 +1,6 @@
 # DefaultApi
 
-All URIs are relative to *http://localhost:3000/auth*
+All URIs are relative to *https://auth-service-latest.onrender.com/auth*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -30,7 +30,7 @@ import authservice.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000/auth");
+    defaultClient.setBasePath("https://auth-service-latest.onrender.com/auth");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String username = "johndoe"; // String | User's username
@@ -96,7 +96,7 @@ import authservice.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000/auth");
+    defaultClient.setBasePath("https://auth-service-latest.onrender.com/auth");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String clientId = "abc123-xyz456"; // String | User's client ID
@@ -162,7 +162,7 @@ import authservice.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000/auth");
+    defaultClient.setBasePath("https://auth-service-latest.onrender.com/auth");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String username = "johndoe"; // String | User's username
@@ -228,7 +228,7 @@ import authservice.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000/auth");
+    defaultClient.setBasePath("https://auth-service-latest.onrender.com/auth");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String username = "johndoe"; // String | Unique username for the user
