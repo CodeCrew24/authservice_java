@@ -11,7 +11,7 @@
   <repository>
   <id>github</id>
   <name>GitHub Packages</name>
-  <url>https://maven.pkg.github.com/https://github.com/CodeCrew24</url>
+  <url>https://maven.pkg.github.com/https://github.com/CodeCrew24/authservice_java</url>
   </repository>
 </distributionManagement>
     <description>Auth service for java</description>
