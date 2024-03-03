@@ -9,7 +9,7 @@ info:
   title: Auth Service
   version: 1.0.0
 servers:
-- url: http://localhost:3000/auth
+- url: https://auth-service-latest.onrender.com/auth/
 paths:
   /register:
     post:

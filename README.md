@@ -2,7 +2,7 @@
 
 Auth Service
 - API version: 1.0.0
-  - Build date: 2024-03-03T10:29:49.966963Z[Etc/UTC]
+  - Build date: 2024-03-03T12:11:35.326194Z[Etc/UTC]
 
 This API provides token-based authentication for user registration, login, and client credential management. It ensures secure communication by utilizing tokens for authentication. Users can register with unique usernames and passwords, authenticate using client credentials, retrieve client IDs and secrets, and regenerate client credentials as needed. The API supports various user roles, including 'user', 'admin', 'moderator', 'guest', and 'superadmin'.
 
@@ -89,7 +89,7 @@ import authservice.client.api.DefaultApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000/auth");
+    defaultClient.setBasePath("https://auth-service-latest.onrender.com/auth");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     String username = "johndoe"; // String | User's username
@@ -111,7 +111,7 @@ public class Example {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:3000/auth*
+All URIs are relative to *https://auth-service-latest.onrender.com/auth*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

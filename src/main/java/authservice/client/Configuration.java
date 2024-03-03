@@ -13,7 +13,7 @@
 
 package authservice.client;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-03T10:29:49.966963Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-03-03T12:11:35.326194Z[Etc/UTC]")
 public class Configuration {
     public static final String VERSION = "1.0.0";
 
