@@ -1,0 +1,315 @@
+openapi: 3.0.0
+info:
+  description: "This API provides token-based authentication for user registration,\
+    \ login, and client credential management. It ensures secure communication by\
+    \ utilizing tokens for authentication. Users can register with unique usernames\
+    \ and passwords, authenticate using client credentials, retrieve client IDs and\
+    \ secrets, and regenerate client credentials as needed. The API supports various\
+    \ user roles, including 'user', 'admin', 'moderator', 'guest', and 'superadmin'."
+  title: Auth Service
+  version: 1.0.0
+servers:
+- url: http://localhost:3000/auth
+paths:
+  /register:
+    post:
+      description: "Creates a new user with the provided username, password, and role.\
+        \ Returns the generated client ID and client secret in the response."
+      parameters:
+      - description: Unique username for the user
+        example: johndoe
+        explode: false
+        in: header
+        name: username
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: User's password
+        example: password123
+        explode: false
+        in: header
+        name: password
+        required: true
+        schema:
+          type: string
+        style: simple
+      - example: user
+        explode: false
+        in: header
+        name: role
+        required: true
+        schema:
+          default: user
+          enum:
+          - user
+          - admin
+          - moderator
+          - guest
+          - superadmin
+          type: string
+        style: simple
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_register_post_201_response'
+          description: User registered successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_register_post_400_response'
+          description: "Bad request (e.g., username already taken)"
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_register_post_500_response'
+          description: Internal server error
+      summary: Registers a new user
+      x-accepts: application/json
+  /login/client:
+    post:
+      description: "Authenticates a user with the provided client ID and secret. Returns\
+        \ a JWT token, token type (Bearer), and expiry time in seconds."
+      parameters:
+      - description: User's client ID
+        example: abc123-xyz456
+        explode: false
+        in: header
+        name: clientId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: User's client secret
+        example: def789-ghi012
+        explode: false
+        in: header
+        name: clientSecret
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_login_client_post_200_response'
+          description: Login successful
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_login_client_post_401_response'
+          description: Unauthorized (invalid client credentials)
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_register_post_500_response'
+          description: Internal server error
+      summary: Logs in a user using client ID and secret
+      x-accepts: application/json
+  /client:
+    get:
+      description: Returns the client ID and client secret of the user associated
+        with the provided username and password.
+      parameters:
+      - description: User's username
+        example: johndoe
+        explode: false
+        in: header
+        name: username
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: User's password
+        example: password123
+        explode: false
+        in: header
+        name: password
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_client_get_200_response'
+          description: Client ID and client secret retrieved successfully
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_client_get_401_response'
+          description: Unauthorized (invalid credentials)
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_register_post_500_response'
+          description: Internal server error
+      summary: Get client ID and secret
+      x-accepts: application/json
+  /regenerate-client-credentials:
+    post:
+      description: Regenerates the client ID and client secret of the user associated
+        with the provided username and password. Returns the new client ID and client
+        secret in the response.
+      parameters:
+      - description: User's username
+        example: johndoe
+        explode: false
+        in: header
+        name: username
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: User's password
+        example: password123
+        explode: false
+        in: header
+        name: password
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_regenerate_client_credentials_post_200_response'
+          description: Client credentials regenerated successfully
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_client_get_401_response'
+          description: Unauthorized (invalid credentials)
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_register_post_500_response'
+          description: Internal server error
+      summary: Regenerate client credentials
+      x-accepts: application/json
+components:
+  schemas:
+    _register_post_201_response:
+      example:
+        clientId: abc123-xyz456
+        clientSecret: def789-ghi012
+        message: User registered successfully
+      properties:
+        message:
+          description: Success message
+          example: User registered successfully
+          type: string
+        clientId:
+          description: Generated client ID
+          example: abc123-xyz456
+          type: string
+        clientSecret:
+          description: Generated client secret
+          example: def789-ghi012
+          type: string
+      type: object
+    _register_post_500_response:
+      example:
+        error: Internal server error
+      properties:
+        error:
+          description: Error message
+          example: Internal server error
+          type: string
+      type: object
+    _client_get_401_response:
+      example:
+        message: Invalid credentials
+      properties:
+        message:
+          description: Error message
+          example: Invalid credentials
+          type: string
+      type: object
+    _register_post_400_response:
+      example:
+        message: Username is already taken
+      properties:
+        message:
+          description: Error message
+          example: Username is already taken
+          type: string
+      type: object
+    _login_client_post_200_response:
+      example:
+        token_type: Bearer
+        expires_in: 3600
+        token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+      properties:
+        token:
+          description: JWT token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+          type: string
+        token_type:
+          description: Type of token
+          example: Bearer
+          type: string
+        expires_in:
+          description: Expiry time of token in seconds
+          example: 3600
+          type: integer
+      type: object
+    _login_client_post_401_response:
+      example:
+        message: Invalid client credentials
+      properties:
+        message:
+          description: Error message
+          example: Invalid client credentials
+          type: string
+      type: object
+    _regenerate_client_credentials_post_200_response:
+      example:
+        clientId: xyz789-abc456
+        clientSecret: ghi012-def789
+        message: Client credentials regenerated successfully
+      properties:
+        message:
+          description: Success message
+          example: Client credentials regenerated successfully
+          type: string
+        clientId:
+          description: New client ID
+          example: xyz789-abc456
+          type: string
+        clientSecret:
+          description: New client secret
+          example: ghi012-def789
+          type: string
+      type: object
+    _client_get_200_response:
+      example:
+        clientId: abc123-xyz456
+        clientSecret: def789-ghi012
+      properties:
+        clientId:
+          description: User's client ID
+          example: abc123-xyz456
+          type: string
+        clientSecret:
+          description: User's client secret
+          example: def789-ghi012
+          type: string
+      type: object
+
