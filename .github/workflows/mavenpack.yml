@@ -21,11 +21,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v3
-      with:
-          java-version: '11'
-          distribution: 'temurin'
+    - name: Build JAR
+      run: mvn --batch-mode package
+      # Optionally, you can specify goals if you need to skip tests or run specific profiles.
+      # run: mvn --batch-mode package -DskipTests
+
     - name: Publish package
       run: mvn --batch-mode deploy
       env:
